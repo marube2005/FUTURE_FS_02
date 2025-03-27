@@ -6,21 +6,15 @@ const port = process.env.PORT || process.argv[3] || 8080;
 
 app.get('/weather', async (req, res) => {
   try {
-    const city = 'London';
-    const apiKey = process.env.OPENWEATHER_API_KEY; // Ensure this environment variable is set
+    const apiKey = "12f09e3ad3dd9f306d4b6cad512aa63a"
 
     if (!apiKey) {
-      throw new Error("API key is not defined. Please set the OPENWEATHER_API_KEY environment variable.");
+      console.log("Hello")
+     // throw new Error("API key is not defined. Please set the OPENWEATHER_API_KEY environment variable.");
     }
 
-    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather`, {
-      params: {
-        q: city,
-        appid: apiKey,
-        units: 'metric' // Optional: for temperature in Celsius
-      }
-    });
-
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=12f09e3ad3dd9f306d4b6cad512aa63a`)
+        
     const data = response.data;
     const temperature = data.main.temp;
     const weatherDescription = data.weather[0].description;
@@ -39,7 +33,7 @@ app.get('/weather', async (req, res) => {
 
   } catch (error) {
     console.error('Error fetching weather data:', error.message);
-    res.status(500).json({ error: 'Error fetching weather data', details: error.message });
+    //res.status(500).json({ error: 'Error fetching weather data', details: error.message });
   }
 });
 
